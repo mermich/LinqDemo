@@ -13,6 +13,11 @@ Mails il y a aussi d'autres methodes tres utiles : groupby, select, selectMany
 Lien pour plus de doc : https://github.com/dotnet/try-samples/blob/main/101-linq-samples/index.md
 
 
+ToList()  => cette methode va fetcher le data, par oppsition a IEnumerable.
+Des donnes IEnumerable sont des donnees, qui ne sont peut etre pas encore evaluees. Par exemple un requete pas encore effectuee en base de donnees.
+Cela permet d'enchainer les clauses, et experessions Linq avant de transcoder ces instructions vers une requete de base de donnes.
+
+
 ## Retouver un element
 Pour retouver un element suivant un critere, il existe de nombreuses methodes qui ont un fonctionnement proche :
 - First
