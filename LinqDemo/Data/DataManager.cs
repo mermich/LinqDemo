@@ -2,7 +2,7 @@
 using LinqDemo.Data;
 using System.Text.Json;
 
-namespace LinqDemo
+namespace LinqDemo.Data
 {
     public static class DataManager
     {

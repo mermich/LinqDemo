@@ -8,7 +8,6 @@ namespace LinqDemo.Tier1.Tier2.Tier3
         {
             List<string> res = new List<string>();
 
-            // Style boucle for:
             foreach (Student student in students)
             {
                 res.Add($"{student.FirstName}-{student.LastName}");

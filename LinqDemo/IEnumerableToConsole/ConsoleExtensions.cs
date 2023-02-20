@@ -2,39 +2,53 @@
 
 namespace LinqDemo.Data
 {
-    public static class IEnumerableExtentions
+    public static class ConsoleExtensions
     {
         public static void ToConsole(this int value)
         {
             Console.WriteLine(value);
         }
 
-        public static void ToConsole<T>(this IEnumerable<T> items)
+        public static void ToConsole<T>(this T item)
+        {
+            if (item == null)
+            {
+                Console.WriteLine("No Item");
+            }
+            else if (item is IEnumerable<string> enumerableStrings)
+            {
+                ToConsoleStrings(enumerableStrings);
+            }
+            else if (item is IEnumerable<object> enumerableItems)
+            {
+                ToConsoleList(enumerableItems);
+            }
+            else
+            {
+                ToConsoleItem(item);
+            }
+        }
+
+
+        static void ToConsoleList<T>(this IEnumerable<T> items)
         {
             if (items.Any())
             {
-                if (items is IEnumerable<string> itemsString)
+                IEnumerable<PropertyInfo> properties = items.First().GetType().GetProperties().Where(p => !p.GetCustomAttributes<ConsoleIgnoreAttribute>().Any());
+                if (properties.Any())
                 {
-                    WriteStringTable(itemsString);
+                    int columnTextWidth = WriteHeader(properties);
+
+                    foreach (T? item in items)
+                    {
+                        WriteRow(properties, columnTextWidth, item);
+                    }
+
+                    WriteHr(properties);
                 }
                 else
                 {
-                    IEnumerable<PropertyInfo> properties = typeof(T).GetProperties().Where(p => !p.GetCustomAttributes<ConsoleIgnoreAttribute>().Any());
-                    if (properties.Any())
-                    {
-                        int columnTextWidth = WriteHeader(properties);
-
-                        foreach (T? item in items)
-                        {
-                            WriteRow(properties, columnTextWidth, item);
-                        }
-
-                        WriteHr(properties);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Type does not have any properties...");
-                    }
+                    Console.WriteLine("Type does not have any properties...");
                 }
             }
             else
@@ -43,7 +57,8 @@ namespace LinqDemo.Data
             }
         }
 
-        public static void ToConsoleItem<T>(this T item)
+
+        static void ToConsoleItem<T>(T item)
         {
             if (item == null)
             {
@@ -111,8 +126,18 @@ namespace LinqDemo.Data
             return columnTextWidth;
         }
 
+        private static void WriteHr(IEnumerable<PropertyInfo> properties)
+        {
+            Console.Write("|");
+            for (int i = 1; i < Console.WindowWidth - properties.Count(); i++)
+            {
+                Console.Write("-");
+            }
+            Console.Write("|");
+            Console.WriteLine();
+        }
 
-        private static void WriteStringTable(IEnumerable<string> values)
+        static void ToConsoleStrings(this IEnumerable<string> values)
         {
             Console.Write("|");
             for (int i = 1; i < Console.WindowWidth - 1; i++)
@@ -149,17 +174,6 @@ namespace LinqDemo.Data
 
             Console.Write("|");
             for (int i = 1; i < Console.WindowWidth - 1; i++)
-            {
-                Console.Write("-");
-            }
-            Console.Write("|");
-            Console.WriteLine();
-        }
-
-        private static void WriteHr(IEnumerable<PropertyInfo> properties)
-        {
-            Console.Write("|");
-            for (int i = 1; i < Console.WindowWidth - properties.Count(); i++)
             {
                 Console.Write("-");
             }

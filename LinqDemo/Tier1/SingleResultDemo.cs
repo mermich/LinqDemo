@@ -22,18 +22,18 @@ namespace LinqDemo
         /// If multiple elements match the requirement, the first element is returned.
         /// </summary>
         /// <returns>See also : First, Single, SingleOrDefault</returns>
-        public static Student? FindPerfectStudentsLinq(List<Student> students, int goodGrade = 10)
+        public static Student? FindPerfectStudentsLinq(List<Student> students)
         {
-            return students.FirstOrDefault(s => s.Grade >= 20);
+            return students.FirstOrDefault(s => s.Grade == 20);
         }
 
         public static void Run(List<Student> students)
         {
             Console.WriteLine("FindPerfectStudents...");
-            FindPerfectStudents(students).ToConsoleItem();
+            FindPerfectStudents(students).ToConsole();
 
             Console.WriteLine("FindPerfectStudentsLinq...");
-            FindPerfectStudentsLinq(students).ToConsoleItem();
+            FindPerfectStudentsLinq(students).ToConsole();
         }
     }
 }

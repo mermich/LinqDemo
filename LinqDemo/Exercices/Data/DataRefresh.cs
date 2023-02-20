@@ -1,4 +1,4 @@
-﻿namespace LinqDemo.Data
+﻿namespace LinqDemo
 {
     public enum DataRefresh
     {

@@ -12,8 +12,7 @@ namespace LinqDemo
             Console.WriteLine("Linq Demo");
             Console.ForegroundColor = ConsoleColor.White;
 
-            List<Student> students = DataManager.ReadStudents(DataRefresh.Override);
-
+            List<Student> students = DataManager.ReadStudents(Data.DataRefresh.Override);
 
             #region tier1
             // Methodes Linq a connaitre (par ordre d'importance) :
