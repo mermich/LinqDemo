@@ -24,7 +24,7 @@ namespace LinqDemo.Exercices
 
         public static Employee? Exo3(List<Employee> employees)
         {
-            // Todo find all employees that knows java and order by proefenccieny and display FirstName-LastName
+            // Todo find all employees that knows java and order by proefencieny and display FirstName-LastName-Javaproefencieny
             return null;
         }
 
@@ -36,6 +36,7 @@ namespace LinqDemo.Exercices
             // 1 js profile (advanced or lower prefferred, or lower)
             // 1 project manager  (expert prefferred, or lower)
 
+            
             return null;
         }
     }
